@@ -7,7 +7,7 @@
   app.controller("myCtrl", function ($scope) {
     $scope.studentArray = [];
     $scope.divStyle = {
-      visibility:'unset'
+      visibility: 'unset'
     };
     $scope.event = {
     };
@@ -15,7 +15,7 @@
       visibility: 'hidden',
     };
     $scope.print = () => {
-      $scope.divStyle.hidden = true;
+      $scope.divStyle.visibility = 'hidden';
       $scope.opStyle.visibility = 'unset';
     };
   });
@@ -29,64 +29,122 @@
   <div ng-controller="myCtrl">
     <h1>Valorant Competition</h1>
     <h3>Register Yourself</h3>
-    <div>
-      <form>
-      </form>
-    </div>
+    <form ng-submit="print()">
+      <div ng-style="divStyle">
+        <table>
+          <tr>
+            <td>First Name</td>
+            <td>
+              <input type="text" name="firstName" id="fName" ng-model="event.fname" />
+            </td>
+          </tr>
+          <tr>
+            <td>Last Name</td>
+            <td>
+              <input type="text" name="lastName" id="lName" ng-model="event.lname" />
+            </td>
+          </tr>
+          <tr>
+            <td>Gender</td>
+            <td>
+              Male <input type="radio" name="gender" id="male" value="Male" ng-model="event.gender"> Female <input type="radio" name="gender" id="female" value="Female" ng-model="event.gender">
+            </td>
+          </tr>
+          <tr>
+            <td>Department</td>
+            <td>
+              <select name="select" id="dept" ng-model="event.dept">
+                <option ng-repeat="x in dept"></option>
+              </select>
+            </td>
+          </tr>
+          {
+            MCA:[]
+          }
+          <tr>
+            <td>Class</td>
+            <td>
+              <select name="select" id="class" ng-model="event.class">
+                <option ng-repeat="x in dept.find((ele)=> ele===event.dept)" ></option>
+              </select>            </td>
+          </tr>
+          <tr>
+            <td>Type Of Event</td>
+            <td>
+              <input type="text" name="type" id="type" ng-model="event.type" />
+            </td>
+          </tr>
+          <tr>
+            <td>Contact No</td>
+            <td>
+              <input type="text" name="contact" id="contact" ng-model="event.contact" />
+            </td>
+          </tr>
+          <tr>
+            <td>Email</td>
+            <td>
+              <input type="email" name="email" id="email" ng-model="event.email" />
+            </td>
+          </tr>
+          <tr>
+            <td></td>
+            <td><input type="submit" value="Submit" ng-click="print()"></td>
+          </tr>
+        </table>
+    </form>
+  </div>
+  <div ng-style="opStyle">
     <table>
       <tr>
         <td>First Name</td>
         <td>
-          <input type="text" name="firstName" id="fName" ng-model="event.fname" />
+          {{event.fname}}
         </td>
       </tr>
       <tr>
         <td>Last Name</td>
         <td>
-          <input type="text" name="lastName" id="lName" ng-model="event.lname" />
+          {{event.lname}}
         </td>
       </tr>
       <tr>
         <td>Gender</td>
         <td>
-          <input type="text" name="gender" id="male" ng-model="event.gender" />
+          {{event.gender}}
         </td>
       </tr>
       <tr>
         <td>Class</td>
         <td>
-          <input type="text" name="class" id="class" ng-model="event.class" />
+          {{event.class}}
         </td>
       </tr>
       <tr>
         <td>Department</td>
         <td>
-          <input type="text" name="dept" id="dept" ng-model="event.dept" />
+          {{event.dept}}
         </td>
       </tr>
       <tr>
         <td>Type Of Event</td>
         <td>
-          <input type="text" name="type" id="type" ng-model="event.type" />
+          {{event.type}}
         </td>
       </tr>
       <tr>
         <td>Contact No</td>
         <td>
-          <input type="text" name="contact" id="contact" ng-model="event.contact" />
+          {{event.contact}}
         </td>
       </tr>
       <tr>
         <td>Email</td>
         <td>
-          <input type="email" name="email" id="email" ng-model="event.email" />
+          {{event.email}}
         </td>
       </tr>
-      <tr>
-        <td></td>
-        <td><input type="submit" value="Submit"></td>
-      </tr>
     </table>
+  </div>
   </div>
 </body>
 

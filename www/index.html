@@ -7,18 +7,16 @@
   app.controller("myCtrl", function ($scope) {
     $scope.studentArray = [];
     $scope.divStyle = {
-      hidden: false,
+      visibility:'unset'
     };
     $scope.event = {
-      fname: "",
-      lname: "",
     };
     $scope.opStyle = {
-      hidden: false,
+      visibility: 'hidden',
     };
     $scope.print = () => {
       $scope.divStyle.hidden = true;
-      $scope.opStyle.hidden = false;
+      $scope.opStyle.visibility = 'unset';
     };
   });
 </script>

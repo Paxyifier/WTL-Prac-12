@@ -1,25 +1,95 @@
 <!DOCTYPE html>
 <html lang="en">
-  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
-  <script>
-    var app = angular.module('myApp', []);
-    app.controller('myCtrl', function($scope){
-        $scope.studentArray = [];
-        $scope.divStyle = {
-          hidden:false
-        }
-        $scope.event = {
-          fname:'',
-          lname:'',
-
-        }
-        $scope.opStyle = {
-          hidden:false
-        }
-        $scope.print = ()=>{
-          $scope.divStyle.hidden = true;
-          $scope.opStyle.hidden = false;
-        }
-    });
+<!-- Create a registration form for a college event containing fname, lname, gender, class, dept, type of event, contact, email . Apply validations(maximum possible), on button click display all data accepted from the user in a proper format in Angularjs 1.7.8 -->
+<script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<script>
+  var app = angular.module("myApp", []);
+  app.controller("myCtrl", function ($scope) {
+    $scope.studentArray = [];
+    $scope.divStyle = {
+      hidden: false,
+    };
+    $scope.event = {
+      fname: "",
+      lname: "",
+    };
+    $scope.opStyle = {
+      hidden: false,
+    };
+    $scope.print = () => {
+      $scope.divStyle.hidden = true;
+      $scope.opStyle.hidden = false;
+    };
+  });
 </script>
+
+<head>
+  <title>Valorant Competition</title>
+</head>
+
+<body ng-app="myApp" ng-submit="print()">
+  <div ng-controller="myCtrl">
+    <h1>Valorant Competition</h1>
+    <h3>Register Yourself</h3>
+    <div>
+      <form>
+      </form>
+    </div>
+    <table>
+      <tr>
+        <td>First Name</td>
+        <td>
+          <input type="text" name="firstName" id="fName" ng-model="event.fname" />
+        </td>
+      </tr>
+      <tr>
+        <td>Last Name</td>
+        <td>
+          <input type="text" name="lastName" id="lName" ng-model="event.lname" />
+        </td>
+      </tr>
+      <tr>
+        <td>Gender</td>
+        <td>
+          <input type="text" name="gender" id="male" ng-model="event.gender" />
+        </td>
+      </tr>
+      <tr>
+        <td>Class</td>
+        <td>
+          <input type="text" name="class" id="class" ng-model="event.class" />
+        </td>
+      </tr>
+      <tr>
+        <td>Department</td>
+        <td>
+          <input type="text" name="dept" id="dept" ng-model="event.dept" />
+        </td>
+      </tr>
+      <tr>
+        <td>Type Of Event</td>
+        <td>
+          <input type="text" name="type" id="type" ng-model="event.type" />
+        </td>
+      </tr>
+      <tr>
+        <td>Contact No</td>
+        <td>
+          <input type="text" name="contact" id="contact" ng-model="event.contact" />
+        </td>
+      </tr>
+      <tr>
+        <td>Email</td>
+        <td>
+          <input type="email" name="email" id="email" ng-model="event.email" />
+        </td>
+      </tr>
+      <tr>
+        <td></td>
+        <td><input type="submit" value="Submit"></td>
+      </tr>
+    </table>
+  </div>
+</body>
+
 </html>

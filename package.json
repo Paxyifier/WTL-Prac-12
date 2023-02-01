@@ -1,0 +1,26 @@
+{
+  "name": "wtl-prac-12",
+  "version": "1.0.0",
+  "description": "1. Create a registration form for a college event containing fname, lname, gender, class, dept, type of event, contact, email . Apply validations(maximum possible), on button click display all data accepted from the user in a proper format.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Paxyifier/WTL-Prac-12.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Paxyifier/WTL-Prac-12/issues"
+  },
+  "homepage": "https://github.com/Paxyifier/WTL-Prac-12#readme",
+  "dependencies": {
+    "dotenv": "^16.0.3",
+    "express": "^4.18.2",
+    "morgan": "^1.10.0"
+  },
+  "devDependencies": {}
+}

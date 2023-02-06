@@ -30,9 +30,9 @@
                 <td>Username</td>
                 <td><input type="text" name="username" id="username" ng-model="username" ng-required="true" ng-minlength="5" ng-maxlength="18"></td>
                 <td>
-                    <span ng-show="myForm.pass.$touched && myForm.username.$error.required">Username is required.</span>
-                    <span ng-show="myForm.pass.$touched && myForm.username.$error.minlength">Username is too short.</span>
-                    <span ng-show="myForm.pass.$touched && myForm.username.$error.maxlength">Username is too long.</span>
+                    <span ng-show="myForm.username.$touched && myForm.username.$error.required">Username is required.</span>
+                    <span ng-show="myForm.username.$touched && myForm.username.$error.minlength">Username is too short.</span>
+                    <span ng-show="myForm.username.$touched && myForm.username.$error.maxlength">Username is too long.</span>
                 </td>
             </tr>
             <tr>

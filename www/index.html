@@ -2,6 +2,17 @@
 <html lang="en">
 <!-- Create a registration form for a college event containing fname, lname, gender, class, dept, type of event, contact, email . Apply validations(maximum possible), on button click display all data accepted from the user in a proper format in Angularjs 1.7.8 -->
 <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.8.2/angular.min.js"></script>
+<style>
+  input.ng-touched.ng-invalid {
+    background-color: tomato;
+  }
+  input::-webkit-outer-spin-button,
+  input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+</style>
 <script>
   var app = angular.module("myApp", []);
   app.controller("myCtrl", function ($scope) {
@@ -9,18 +20,40 @@
     $scope.divStyle = {
       visibility: 'unset'
     };
+    $scope.formStatus='';
     $scope.event = {
     };
-    $scope.type = ["Valorant", "Fortnite", "Rocket League", "CS:GO", "PUBG"];
-    $scope.dept = ["MCA","Instrumentation","Mechanical","Civil","Electrical","Electronics","Computer Science","Information Technology"];
+
+    $scope.type = ["Solo", "Duo", "Full Party"];
+    $scope.dept = ["MCA", "Instrumentation", "Mechanical", "Civil", "Electrical", "Electronics", "Computer Science", "Information Technology"];
     $scope.opStyle = {
       visibility: 'hidden',
     };
     $scope.print = () => {
-      $scope.divStyle.visibility = 'hidden';
-      $scope.opStyle.visibility = 'unset';
+      if ($scope.registrationForm.$pristine || $scope.registrationForm.$invalid){
+        $scope.formStatus = "Form is Invalid, Please fill again and submit."
+      } else{
+        $scope.divStyle.visibility = 'hidden';
+        $scope.opStyle.visibility = 'unset';
+      }
     };
   });
+  app.directive('myDirective', function() {
+  return {
+    require: 'ngModel',
+    link: function(scope, element, attr, mCtrl) {
+      function myValidation(value) {
+        if (value.indexOf("e")  -1) {
+          mCtrl.$setValidity('charE', true);
+        } else {
+          mCtrl.$setValidity('charE', false);
+        }
+        return value;
+      }
+      mCtrl.$parsers.push(myValidation);
+    }
+  };
+});
 </script>
 
 
@@ -32,13 +65,17 @@
   <div ng-controller="myCtrl">
     <h1>Valorant Competition</h1>
     <h3>Register Yourself</h3>
-    <form name="registrationForm" ng-submit="print()">
+    <form name="registrationForm" ng-submit="print()" novalidate>
       <div ng-style="divStyle">
+        <p>
+          {{formStatus}}
+        </p>
         <table>
           <tr>
             <td>First Name</td>
             <td>
-              <input type="text" name="firstName" id="fName" ng-model="event.fname" ng-minlength="3" ng-maxlength="20" ng-required="true"/>
+              <input type="text" name="firstName" id="fName" ng-model="event.fname" ng-minlength="3" ng-maxlength="20"
+                ng-required="true" />
             </td>
             <td>
               <span ng-show="registrationForm.firstName.$touched && registrationForm.firstName.$error.required">
@@ -55,7 +92,8 @@
           <tr>
             <td>Last Name</td>
             <td>
-              <input type="text" name="lastName" id="lName" ng-model="event.lname" ng-minlength="3" ng-maxlength="20" ng-required="true" />
+              <input type="text" name="lastName" id="lName" ng-model="event.lname" ng-minlength="3" ng-maxlength="20"
+                ng-required="true" />
             </td>
             <td>
               <span ng-show="registrationForm.lastName.$touched && registrationForm.lastName.$error.required">
@@ -72,7 +110,11 @@
           <tr>
             <td>Gender</td>
             <td>
-              Male <input type="radio" name="gender" id="male" value="Male" ng-model="event.gender" ng-required="true"> Female <input type="radio" name="gender" id="female" value="Female" ng-model="event.gender" ng-required="true">
+              Male <input type="radio" name="gender" id="male" value="Male" ng-model="event.gender" ng-required="!color">
+              Female <input type="radio" name="gender" id="female" value="Female" ng-model="event.gender"
+                ng-required="true">
+              Prefer Not To Disclose <input type="radio" name="gender" id="male" value="None" ng-model="event.gender"
+                ng-required="true">
             </td>
             <td>
               <span ng-show="registrationForm.gender.$touched && registrationForm.gender.$error.required">
@@ -83,7 +125,7 @@
           <tr>
             <td>Department</td>
             <td>
-              <select name="department" id="dept" ng-model="event.dept">
+              <select name="department" id="dept" ng-model="event.dept" ng-required="true">
                 <option value="">Select Department</option>
                 <option ng-repeat="x in dept">{{x}}</option>
               </select>
@@ -97,13 +139,14 @@
           <tr>
             <td>Class</td>
             <td>
-              <input type="text" ng-model="event.class" name="class" id="class" ng-required="true" ng-maxlength="6" ng-minlength="4">
+              <input type="text" ng-model="event.class" name="class" id="class" ng-required="true" ng-maxlength="6"
+                ng-minlength="4">
             </td>
             <td>
-              <span ng-show="registrationForm.class.$touched && registrationForm.class.$error.required" 
+              <span ng-show="registrationForm.class.$touched && registrationForm.class.$error.required">
                 Class is required.
               </span>
-              
+
               <span ng-show="registrationForm.class.$touched && registrationForm.class.$error.minlength">
                 Class cannot be shorter than 4 characters.
               </span>
@@ -115,7 +158,8 @@
           <tr>
             <td>Type Of Event</td>
             <td>
-              <select name="eventType" id="type" ng-model="event.type">
+              <select name="eventType" id="type" ng-model="event.type" ng-required="true">
+                <option value="">Select</option>
                 <option ng-repeat="x in type">{{x}}</option>
               </select>
             </td>
@@ -128,7 +172,7 @@
           <tr>
             <td>Contact No</td>
             <td>
-              <input type="text" name="contact" id="contact" ng-model="event.contact" />
+              <input type="number" name="contact" id="contact" ng-model="event.contact" ng-required="true" ng-maxlength="14" ng-minlength="9"/>
             </td>
             <td>
               <span ng-show="registrationForm.contact.$touched && registrationForm.contact.$error.required">
@@ -139,15 +183,15 @@
           <tr>
             <td>Email</td>
             <td>
-              <input type="email" name="email" id="email" ng-model="event.email" />
-              <td>
-                <span ng-show="registrationForm.email.$touched && registrationForm.email.$error.required">
-                  Email is required.
-                </span>
-                <span ng-show="registrationForm.email.$touched && registrationForm.email.$error.email">
-                  Email should be valid.
-                </span>
-              </td>
+              <input type="email" name="email" id="email" ng-model="event.email" ng-required="true" />
+            <td>
+              <span ng-show="registrationForm.email.$touched && registrationForm.email.$error.required">
+                Email is required.
+              </span>
+              <span ng-show="registrationForm.email.$touched && registrationForm.email.$error.email">
+                Email should be valid.
+              </span>
+            </td>
             </td>
           </tr>
           <tr>
